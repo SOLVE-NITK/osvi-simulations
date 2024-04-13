@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SOLVE</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <script type="text/javascript" src="js/jquerymin.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <script>
+        var simsubscreennum = 0;
+        var temp = 0;
+        var lnt = 0;
+        var sample = 1;
+        var n;
+        var sampletype = 1;
+    </script>
+    <style>
+
+        #section0 #container {
+            position: relative;
+            width: 800px; 
+            height: 400px; 
+        }
+
+        #section0 #weighingMachine {
+            position: absolute;
+            top: 170px; 
+            left: 50px; 
+            height: 200px;
+        }
+
+        #section0 #crucible {
+            position: absolute;
+            top: 170px; 
+            right: 150px; 
+        }
+
+        #section0 #arrow {
+            position: absolute;
+            top: 230px; 
+            right: 150px; 
+            width: 40px; 
+            height: 40px; 
+            cursor: pointer;
+            display: none; 
+        }
+
+        @keyframes blink-animation {
+            0%, 50% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        #section0 .blink {
+            animation: blink-animation 1s infinite;
+        }
+
+        #section100 #container {
+            position: relative;
+            width: 800px; 
+            height: 400px; 
+        }
+
+        #section100 #weighingMachine {
+            position: absolute;
+            top: 170px; 
+            left: 50px; 
+            height: 200px;
+        }
+
+        #section100 #crucible {
+            position: absolute;
+            top: 170px; 
+            right: 150px; 
+        }
+
+        #section100 #arrow {
+            position: absolute;
+            top: 230px; 
+            right: 150px; 
+            width: 40px; 
+            height: 40px; 
+            cursor: pointer;
+            display: none; /* Initially hide the arrow */
+        }
+
+        @keyframes blink-animation {
+            0%, 50% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        #section100 .blink {
+            animation: blink-animation 1s infinite;
+        }
+
+#section1 #container {
+    position: relative;
+    height: 800px; 
+    overflow: hidden;
+}
+
+#section1 #furnace {
+    position: absolute;
+    top: 100px; 
+    left: 40%;
+    transform: translateX(-50%);
+    width: 150px; 
+    height: 200px; 
+    background: url('images/furnacee.png') no-repeat center center / cover;
+    border-radius: 50% 50% 0 0;
+}
+
+#section1 #hand1 {
+    position: absolute;
+    top: calc(100px + 290px); 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 100px; 
+}
+
+#section1 .blinking-arrow1 {
+    position: absolute;
+    top: calc(200px + 100px); 
+    left: calc(50% + 70px); 
+    opacity: 0;
+    animation: blinkArrow 1s infinite alternate; 
+    cursor: pointer;
+}
+
+@keyframes blinkArrow {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+#section15 #container {
+            position: relative;
+            width: 100%;
+            height: 800px; 
+            overflow: hidden;
+        }
+
+        #section15 #hand {
+            position: absolute;
+            top: 40%;
+            left: calc(50% - 350px);
+            transform: translateY(-50%);
+            width: 200px; 
+            height: 100px;
+            z-index: 1;
+            transition: left 2s ease-in-out, transform 1s ease-in-out; /* Smooth movement and rotation animations */
+        }
+
+        #section15 .blinking-arrow {
+            position: absolute;
+            top: 50%;
+            left: calc(50% - 350px); 
+            width: 50px; 
+            height: auto;
+            animation: blink 1s linear infinite; /* Blinking animation */
+        }
+
+          @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        #section15 #boat {
+            position: absolute;
+            top: 45%;
+            right: 150px;
+            transform: translate(50%,-50%);
+            width: 200px; 
+            height: 200px;
+            z-index: 0;
+        }
+
+        #section15 .filled-boat {
+            position: absolute;
+            top: 45%;
+            right: 40px;
+            /* transform: translate(50%, -50%) rotate(45deg); Initial rotation */
+            width: 200px;
+            height: 200px;
+            z-index: 0;
+            display: none; /* Initially hidden */
+        }
+
+#section2 #container {
+    position: relative;
+    width: 100%;
+    height: 800px; 
+    overflow: hidden;
+}
+
+#section2 #weighing-machine {
+    position: absolute;
+    top: 200px;
+    left: 40%;
+    transform: translate(-50%,-50%);
+    width: 200px; 
+    height: auto;
+    opacity: 1;
+    transition: opacity 2s ease-in-out; /* Gradual disappearance */
+}
+
+#section2 #water-beaker-container {
+    position: absolute;
+    top: 40%;
+    left: 80%;
+    transform: translate(-50%,-50%);
+    width: 200px; 
+    height: auto;
+    opacity: 0;
+    transition: opacity 2s ease-in-out; /* Gradual appearance */
+}
+
+#section2 #water-beaker {
+    width: 100%;
+    height: auto;
+}
+
+#section2 #arrow-clockwise {
+    position: absolute;
+    top: calc(50% - 50px); 
+    left: calc(50% + 100px); 
+    opacity: 0;
+    transition: opacity 2s ease-in-out; /* Gradual appearance */
+}
+
+#section2 #arrow-clockwise img {
+    width: 40px; 
+    height: auto;
+    animation: moveClockwise 2s linear infinite; /* Arrow movement animation */
+}
+
+@keyframes moveClockwise {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+#section2 .blinking-arrow {
+    position: absolute;
+    top: 50%;
+    left: calc(50% + 105px); 
+    width: 50px;
+    height: auto;
+    animation: blink 1s linear infinite; /* Blinking animation */
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+#section3 #container {
+            position: relative;
+            width: 100%;
+            height: 800px;
+            overflow: hidden;
+        }
+
+        #section3 #filtration-image {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            width: 300px; 
+            height: auto;
+        }
+
+        #section3 .blinking-arrow3 {
+            position: absolute;
+            top: 40%;
+            left: calc(50% + 160px);
+            width: 50px;
+            height: auto;
+            animation: blink 1s linear infinite; 
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        #section3 .arrow-label {
+            position: absolute;
+            top: 30%;
+            left: calc(40% + 200px);
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        #furnace-container {
+    position: relative;
+  }
+  
+  #section5 #furnace1, #petri-dish, #arrow-furnace, #arrow-petri {
+    position: absolute;
+  }
+  
+  #section5 .blinking {
+    animation: blink-animation 1s infinite;
+  }
+  
+  @keyframes blink-animation {
+    0%, 49.9% {
+      opacity: 1;
+    }
+    50%, 100% {
+      opacity: 0;
+    }
+  }
+  
+  #section5 #arrow-furnace {
+    right: 630px;
+    top: 360px;
+  }
+  
+  #section5 #petri-dish {
+    top: 360px;
+    left: 250px;
+  }
+  
+  #section5 #arrow-petri {
+    display: none;
+    top: 450px; 
+    left: 250px; 
+  }
+
+  #section6 #container {
+            position: relative;
+            width: 100%;
+            height: 800px;
+            overflow: hidden;
+        }
+
+        #section6 #filtration-image {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            width: 300px; 
+            height: auto;
+        }
+
+        #section6 .blinking-arrow3 {
+            position: absolute;
+            top: 40%;
+            left: calc(50% + 160px);
+            width: 50px;
+            height: auto;
+            animation: blink 1s linear infinite; 
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        #section6 .arrow-label {
+            position: absolute;
+            top: 30%;
+            left: calc(40% + 200px);
+            font-size: 14px;
+            font-weight: bold;
+        }
+  
+
+
+    </style>
+</head>
+
+<body style="margin:0; font-family:verdana; font-size:14px;">
+
+    <!-- Simulation Screen start -->
+    <div id="simscreen">
+
+        <!-- Title of Simulation -->
+        <div id="title">
+            <h4>Roasting of sphalerite in the presence of lime and steam</h4>
+        </div>
+
+         <!-- Home Screen -->
+      
+        <div class="simsubscreen" id="section-1">
+            <h4 class="incanvas" style="font-family:verdana;">Objective</h4>
+            <p class="incanvas" style="font-family:verdana; font-size:15px;">To roast the given sphalerite concentrate in the presence of lime with an addition of steam and to analyze the calcine.</p>
+            <br>
+            <h4 class="incanvas" style="font-family:verdana;">Apparatus used:</h4>
+            <p class="incanvas" style="font-family:verdana; font-size:14px;">Furnace, filter paper, Ammonium Chloride, Ammonium Hydroxide, Beaker, Stirrer, Lime, Sphalerite, Steam, Porcelain boat.</p>
+            <br>
+            <span class="descont" style="border-bottom:1px dotted ; color:red; position:absolute; top:150px; z-index: 500;">Description
+                <span  class="desctext" style=" font-size:16px;">
+                <strong>Roasting </strong>: It is a process of heating sulphide ores in presence of air at high temperatures to convert them into oxides. <br><br>
+                <strong>Using lime and steam in roasting</strong> : This helps in reducing the amount of sulphur di oxide emissions in traditional roasting methods.
+                </span></span>
+            <img src="images/Man.png" alt="Human" height="300px" style="position:absolute; margin-left:20px;margin-top:28px;">
+            <img src="images/tubular.png" alt="Human" height="100px" style="position:absolute; margin-left:200px;margin-top:38px;z-index: 1;">
+            <img src="images/wm.png" alt="Human" height="80px" style="position:absolute; margin-left:360px;margin-top:38px;z-index: 1;">
+            <img src="images/door_closed.png" alt="Human" height="160px" style="position:absolute; margin-left:520px;margin-top:-18px;z-index: 1;margin-bottom: 80px;width: 100px;">
+            <img src="images/table.png" height=200px" alt="Table" style="position:absolute; margin-left:150px;margin-top:88px;width: 600px;">
+            <!-- <div id="nextbutton" height="250px" style="position:absolute; margin-left:675px;margin-top:315px;">
+                <a href="page1.html" class="next-page-button"><img src="images/Next.png" alt="Next Page"></a>
+            </div> -->
+            <button id="next-button" style="position: absolute; bottom: 1px; right: 10px; background: none; border: none;" onclick="navigateToNextPage()">
+                <img src="images/Next.png" alt="Next" style="width: 30px; height: 30px;">
+            </button>
+        </div>
+
+         <!-- Step 1 -->
+
+         <div class="simsubscreen"  id="section0" style="display: none;">
+            <strong class="incanvas">STEP</strong>
+            <span class="circlebg">&nbsp;1&nbsp;</span>
+            <p class="steptext">&nbsp;Measure 1 gram of Lime [Empty Petridish weight=16.415 g]</p>
+            <div id="container">
+                <div id="weighingMachine">
+                    <img src="images/wm.png" alt="Weighing Machine" />
+                </div>
+                <div id="crucible">
+                    <img src="images/pd5.png" alt="Crucible" " />
+                </div>
+                <img src="images/upwardarrow.png" id="arrow" alt="Arrow" class="blink" />
+            </div>
+
+            <span id="note1" class="tooltip" style="font-family:verdana; font-size:18px;border-bottom:1px dotted ; color:red; position:absolute; visibility: hidden;">
+                <span id="10" class="tooltiptext" style="font-family:verdana; font-size:14px;color:white;width:600px;left:-650px;top:265px;text-align: justify;">Note:<br><br>Similarly measure 1 gram of spahlerite. </br></br>
+                <input id="ok" type="button" name="ok" value="Ok" />&nbsp;&nbsp;&nbsp;</span>
+            </span>
+            
+            <button id="next-button-section0" style="position: absolute; bottom: 1px; right: 10px; background: none; border: none; display: none;" onclick="navigateToNextPage()">
+                <img src="images/Next.png" alt="Next" style="width: 30px; height: 30px;">
+            </button>
+         </div>
+
+         <!--Step0.5.5-->
+         <!-- <div class="simsubscreen"  id="section100" style="display: none;">
+            <strong class="incanvas">STEP</strong>
+            <span class="circlebg">&nbsp;1&nbsp;</span>
+            <p class="steptext">&nbsp;Measure and take 1 gram of lime</p>
+            <div id="container">
+                <div id="weighingMachine100">
+                    <img src="images/wm.png" alt="Weighing Machine" />
+                </div>
+                <div id="crucible100">
+                    <img src="images/petridish2.png" alt="Crucible" />
+                </div>
+                <img src="images/upwardarrow.png" id="arrow100" alt="Arrow" class="blink" />
+            </div>
+            <button id="next-button-section100" style="position: absolute; bottom: 1px; right: 10px; background: none; border: none; display: none;" onclick="navigateToNextPage()">
+                <img src="images/Next.png" alt="Next" style="width: 30px; height: 30px;">
+            </button>
+         </div> -->
+
+
+
+         <!--Step1.5-->
+        
+         <div class="simsubscreen"  id="section15" style="display: none;">
+            <strong class="incanvas">STEP</strong>
+            <span class="circlebg">&nbsp;1&nbsp;</span>
+            <p class="steptext">&nbsp;Transfer the contents to a porcelain boat</p>
+            <div id="container">
+                <img id="hand" src="images/hand_with_residue.png" height="50px" alt="Hand holding residue" onclick="handleHandClick()">
+                <!-- Blinking Arrow-->
+                <img class="blinking-arrow" src="images/upwardarrow.png" alt="upward Arrow">
+                <!-- Furnace Image-->
+                <img id="boat" src="images/new_PB.png" alt="Furnace Image">
+                <!-- Filled Porcelain Boat Image (Initially hidden) -->
+                <img class="filled-boat" src="images/new_PB.png" alt="Filled Porcelain Boat">
+            </div>
+            <button id="next-button-section15" style="position: absolute; bottom: 1px; right: 10px; background: none; border: none; display: none;" onclick="navigateToNextPage()">
+                <img src="images/Next.png" alt="Next" style="width: 30px; height: 30px;">
+            </button>
+         </div>
+
+
+         
+            
+
+        <!-- Step 2 -->
+        <div class="simsubscreen" id="section1" style="display: none;">
+            <strong id="titlestep" class="incanvas">STEP </strong>
+            <span class="circlebg" id="stepnumber">&nbsp;2&nbsp;</span>
+            <p id="pumptext" class="steptext" style="font-family:verdana; font-size:14px;">Place the porcelain boat in the even zone of the furnace. Add steam.</p>
+            <br>
+            <div id="container">
+                <div id="furnace">
+                    <img src="images/tubular.png" height="150px" right="50px"alt="furnace">
+                </div>
+                <div id="hand1"  onclick="startAnimation()">
+                    <img src="images/PB_Hand.png" height="50px" alt="Hand holding boat">
+                </div>
+                <!-- Added blinking arrow -->
+                <div class="blinking-arrow1" >
+                    <img src="images/upwardarrow.png" height="50px" alt="Blinking Arrow">
+                </div>
+            </div>
+            <button id="next-button-section1" style="position: absolute; bottom: 1px; right: 10px; background: none; border: none; display: none;" onclick="navigateToNextPage()">
+                <img src="images/Next.png" alt="Next" style="width: 30px; height: 30px;">
+            </button>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="simsubscreen" id="section2" style="display: none;">
+            <strong id="titlestep" class="incanvas">STEP </strong>
+            <span class="circlebg" id="stepnumber">&nbsp;3&nbsp;</span>
+            <p id="pumptext" class="steptext" style="font-family:verdana; font-size:14px;">About 1g of Calcine is weighed accurately and dissolved in hot water. ZnSO4 is passed into the solution.</p>
+            <br>
+            <div id="container">
+                <div id="weighing-machine">
+                    <img src="images/machine_off.png" height="200px"alt="Weighing Machine" onclick="showWeightImage()">
+                </div>
+                <div id="water-beaker-container">
+                    <img id="water-beaker" src="images/dissolve.png" alt="Beaker with Water">
+                </div>
+                <div id="arrow-clockwise">
+                    <img src="images/clockwise.png" alt="Arrow Clockwise">
+                </div>
+            </div>
+            <img class="blinking-arrow" id="arrow1" src="images/left_arrow.png" height="100px" onclick="showWeightImage()">
+            <button id="next-button-section2" style="position: absolute; bottom: 1px; right: 10px; background: none; border: none; " onclick="navigateToNextPage()">
+                <img src="images/Next.png" alt="Next" style="width: 30px; height: 30px;">
+            </button>
+        </div>
+        
+        <!--Step 4-->
+        <div class="simsubscreen"  id="section3" style="display: none;">
+            <strong class="incanvas">STEP</strong>
+            <span class="circlebg">&nbsp;4&nbsp;</span>
+            <p class="steptext">&nbsp;It is filtered and the filtrate contains ZnSO4. </p>
+            <div id="container">
+                <img id="filtration-image" src="images/filtration.png" alt="Filtration Image">
+                <!-- Blinking Arrow-->
+                <img class="blinking-arrow3" src="images/downward.png" alt="Downward Arrow">
+                <!-- Arrow Label-->
+                <div class="arrow-label">ZnSO<sub>4</sub> goes down as filtrate</div>
+            </div>
+            
+            <button id="next-button-section3" style="position: absolute; bottom: 1px; right: 10px; background: none; border: none; " onclick="navigateToNextPage()">
+                <img src="images/Next.png" alt="Next" style="width: 30px; height: 30px;">
+            </button>
+         </div>
+
+         <!--Step 5-->
+
+         <div class="simsubscreen"  id="section5" style="display: none;">
+            <strong class="incanvas">STEP</strong>
+            <span class="circlebg">&nbsp;5&nbsp;</span>
+            <p class="steptext">&nbsp;The residue is dried in a hot air oven and then weighed accurately.</p>
+            <div id="furnace-container">
+                <img id="furnace-img" src="images/door_closed.png" height="320px" margin-left="100px" alt="Furnace">
+                <img id="arrow-furnace" src="images/upwardarrow.png" alt="Arrow to Furnace" height="50px"width="50px"class="blinking">
+              </div>
+              <div id="petri-container">
+                <img id="petri-dish" src="images/residue.png" height="60px" width="60px"alt="Petri Dish">
+                <img id="arrow-petri" src="images/upwardarrow.png" alt="Arrow to Petri Dish" height="50px" width="50px" class="blinking hidden">
+              </div>
+            
+            <button id="next-button-section5" style="position: absolute; bottom: 1px; right: 10px; background: none; border: none; " onclick="navigateToNextPage()">
+                <img src="images/Next.png" alt="Next" style="width: 30px; height: 30px;">
+            </button>
+         </div>
+
+
+         <!--Step 6-->
+         <!-- <div class="simsubscreen"  id="section0" style="display: none;">
+            <strong class="incanvas">STEP</strong>
+            <span class="circlebg">&nbsp;6&nbsp;</span>
+            <p class="steptext">&nbsp;It is now dissolved in ammonium chloride and ammonium hydroxide. After stirring well, it is filtered. The filtrate contains ZnO. The residue is dried and weighed accurately.</p>
+            <div id="container"> Add image for residue-->
+                <!-- <img src="images/NH4OH.png" height="250px"alt="Ammonia compounds">
+                <img id="residue" src="images/AddNH4.png" height="150px"alt="Residue Image">
+                Add image for mixing compounds-->
+                <!-- Add blinking arrow next to mixing compounds image-->
+                <!-- Add label for the arrow-->
+                <!-- <img class="blinking-arrow" src="images/downward.png" alt="Blinking Arrow">
+                <div class="arrow-label">Mixing Compounds</div>
+            </div> --> 
+            
+            <!-- <button id="next-button-section0" style="position: absolute; bottom: 1px; right: 10px; background: none; border: none; " onclick="navigateToNextPage()">
+                <img src="images/Next.png" alt="Next" style="width: 30px; height: 30px;">
+            </button>
+         </div> --> 
+
+         <!-- <div class="simsubscreen"  id="section6" style="display: none;">
+            <strong class="incanvas">STEP</strong>
+            <span class="circlebg">&nbsp;7&nbsp;</span>
+            <p class="steptext">&nbsp;It is filtered and the filtrate contains ZnO. The residue is dried and weighed accurately.</p>
+            <div id="container">
+                <img id="filtration-image" src="images/filtration.png" alt="Filtration Image">
+                Blinking Arrow-->
+                <!--  <img class="blinking-arrow" src="images/downward.png" alt="Downward Arrow">
+                 Arrow Label-->
+                <!-- <div class="arrow-label">ZnO goes down as filtrate</div>
+            </div>--> 
+            
+            <!-- <button id="next-button-section0" style="position: absolute; bottom: 1px; right: 10px; background: none; border: none; " onclick="navigateToNextPage()">
+                <img src="images/Next.png" alt="Next" style="width: 30px; height: 30px;">
+            </button>
+         </div> --> 
+
+         <!-- <div class="simsubscreen"  id="section7" style="display: none;">
+            <strong class="incanvas">STEP</strong>
+            <span class="circlebg">&nbsp;1&nbsp;</span>
+            <p class="steptext">&nbsp;The residue is dried and weighed accurately</p>
+            <div id="furnace-container">
+                <img id="furnace-img1" src="images/door_closed.png" height="320px" margin-left="100px" alt="Furnace">
+                <img id="arrow-furnace" src="images/upwardarrow.png" alt="Arrow to Furnace" height="50px"width="50px"class="blinking">
+              </div>
+              <div id="petri-container">
+                <img id="petri-dish" src="images/residue.png" height="60px" width="60px"alt="Petri Dish">
+                <img id="arrow-petri" src="images/upwardarrow.png" alt="Arrow to Petri Dish" height="50px" width="50px" class="blinking hidden">
+              </div>
+            
+            <button id="next-button-section0" style="position: absolute; bottom: 1px; right: 10px; background: none; border: none;" onclick="navigateToNextPage()">
+                <img src="images/Next.png" alt="Next" style="width: 30px; height: 30px;">
+            </button>
+         </div> -->
+         <div class="simsubscreen"  id="section8" style="display: none;">
+            <strong class="incanvas">STEP</strong>
+            <span class="circlebg">&nbsp;6&nbsp;</span>
+            <p class="steptext">&nbsp;Observations and calculations.</p>
+            <div id="container">
+                <br>
+                <h4>(a) % of ZnSO4</h4>
+                <br>
+                <!-- calc(); -->
+                <!-- Calculation lines-->
+                <p id="sample-weight" class="calculation-line">Sample weight = a = 2.017 g</p>
+                <p id="weight-of-roasted-sample" class="calculation-line">Weight of the roasted sample taken for analysis = b = 1.024 g</p>
+                <p id="weight-of-filter-paper" class="calculation-line">Weight of filter paper = c = 0.684 g</p>
+                <p id="weight-of-residue-with-filter-paper" class="calculation-line">Weight of filterpaper + Residue = d = 1.664 g</p>
+                <p id="weight-of-residue" class="calculation-line">Weight of the residue after washing with hot water = d- c = 0.98 g</p>
+                <p id="weight-of-znso4" class="calculation-line">Weight of ZnSO4 = b– e = 0.044 g</p>
+                <p id="percentage-of-znso4" class="calculation-line">% of ZnSO4 in the roasted sample = f / b × 100 = 4.29 %</p>
+                
+            </div>
+            
+            <!-- <button id="next-button-section0" style="position: absolute; bottom: 1px; right: 10px; background: none; border: none; " onclick="navigateToNextPage()">
+                <img src="images/Next.png" alt="Next" style="width: 30px; height: 30px;">
+            </button> -->
+         </div>
+
+
+
+        <!-- Next Arrow -->
+        <!-- <button id="next-button" style="position: fixed; bottom: 20px; right: 20px; background: none; border: none;" onclick="navigateToNextPage()">
+            <img src="images/Next.png" alt="Next" style="width: 50px; height: auto;">
+        </button> -->
+        <!-- <button id="next-button" style="position: absolute; bottom: 20px; right: 20px; background: none; border: none;" onclick="navigateToNextPage()">
+            <img src="images/Next.png" alt="Next" style="width: 50px; height: auto;">
+        </button> -->
+
+      
+
+        <!-- Copyright -->
+        <div id="copyright"> &copy;
+            <script>
+                document.write(new Date().getFullYear())
+            </script> SOLVE - The Virtual Lab @ NITK Surathkal, Department of Water Resources & Ocean Engineering.
+        </div>
+    </div>
+
+    <!-- Script for Navigation -->
+    <script>
+       function navigateToNextPage() {
+            const sections = document.querySelectorAll('.simsubscreen');
+            for (let i = 0; i < sections.length; i++) {
+                if (sections[i].style.display !== 'none') {
+                    // Hide the current section
+                    sections[i].style.display = 'none';
+                    // If there is a next section, show it
+                    if (i + 1 < sections.length) {
+                        sections[i + 1].style.display = 'block';
+                        // Show the next button unless it's the last section
+                        document.getElementById('next-button').style.display = (i + 2 === sections.length) ? 'none' : 'block';
+                    }
+                    return; // Exit the function after navigating to the next section
+
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>

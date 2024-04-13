@@ -1,0 +1,975 @@
+{
+  "steps": [
+    {
+      "name": "step0",
+      "default": {
+        "actions": [
+          ["blinkingArrow", "updateSize", { "w": "0", "h": "0" }],
+          ["step", "=", "complete"]
+        ]
+      },
+      "props": [
+        {
+          "image": "./images/table.jpeg",
+          "position": { "x": "5%", "y": "30%" },
+          "container": "step0",
+          "dimensions": { "h": "370px", "w": "100%" },
+          "classes": [],
+          "pointofinterests": []
+        }
+      ]
+    },
+    {
+      "name": "step1",
+      "default": {
+        "actions": [
+          ["textelement", "open", true],
+          [
+            "textelement",
+            "moveTo",
+            {
+              "x": "20px",
+              "y": "20%"
+            }
+          ],
+          ["textelement", "setTitle", "Put the Zn pecies in the bowl"]
+        ]
+      },
+      "props": [
+        {
+          "id": "bowl",
+          "image": "./images/step1/bowl.png",
+          "position": { "x": "240px", "y": "50%" },
+          "container": "step1",
+          "dimensions": { "h": "200px", "w": "370px" },
+          "pointofinterests": [],
+          "label": ["Bowl", -40]
+        },
+        {
+          "id": "blocks",
+          "image": "./images/step1/blocks.png",
+          "position": { "x": "40%", "y": "150px" },
+          "container": "step1",
+          "dimensions": { "h": "100px", "w": "200px" },
+          "classes": "",
+          "pointofinterests": [
+            {
+              "id": "blocks-first",
+              "x": 100,
+              "y": 40,
+              "cb": []
+            }
+          ]
+        }
+      ],
+      "sequence": [
+        {
+          "target": "blocks-first",
+          "action": {
+            "type": "INTERACTION",
+            "context": "blocks",
+            "animation": {
+              "duration": 1000,
+
+              "translateY": "240px",
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "NEXT-SCENE"
+          }
+        }
+      ]
+    },
+    {
+      "name": "step2",
+      "default": {
+        "actions": [
+          ["step", "=", "complete"],
+          ["textelement", "setTitle", "Clean the sandpaper throughly"]
+        ]
+      },
+      "props": [
+        {
+          "image": "./images/step2/handsandpaper.png",
+          "position": { "x": "200px", "y": "25%" },
+          "container": "step2",
+          "dimensions": { "h": "400px", "w": "400px" },
+          "classes": "",
+          "pointofinterests": [],
+          "label": ["Copper Rod", 100]
+        }
+      ]
+    },
+    {
+      "name": "step3",
+      "default": {
+        "actions": []
+      },
+      "props": [
+        {
+          "image": "./images/step2/machine.png",
+          "position": { "x": "200px", "y": "25%" },
+          "container": "step3",
+          "dimensions": { "h": "400px", "w": "400px" },
+          "classes": "",
+          "pointofinterests": [],
+          "label": ["Molten zinc inside a machine", 50]
+        },
+        {
+          "id": "rod",
+          "image": "./images/step2/rod.png",
+          "position": { "x": "0px", "y": "60%" },
+          "dimensions": { "h": "200px", "w": "200px" },
+          "classes": ["tilted"],
+          "pointofinterests": [
+            {
+              "id": "rod-p1",
+              "x": 90,
+              "y": 5,
+              "cb": [
+                [
+                  "textelement",
+                  "setTitle",
+                  "Wait for 2 hours, after power supply will cut off"
+                ],
+                ["step", "=", "complete"]
+              ]
+            }
+          ]
+        },
+        {
+          "id": "clock",
+          "classes": ["hidden"],
+          "image": "./images/step2/clock.png",
+          "position": { "x": "75%", "y": "20%" },
+          "container": "step3",
+          "dimensions": { "h": "100px", "w": "200px" },
+          "pointofinterests": [],
+          "label": ["2 Hour Timer set in clock", 0]
+        }
+      ],
+      "sequence": [
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "rod",
+            "animation": {
+              "duration": 0,
+              "rotate": -30
+            }
+          }
+        },
+        {
+          "target": "rod-p1",
+          "action": {
+            "type": "INTERACTION",
+            "context": "rod",
+            "animation": {
+              "duration": 1000,
+              "left": "290px",
+              "rotateZ": "30deg",
+              "translateY": "-250px"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "rod",
+            "animation": {
+              "duration": 1000,
+              "rotateZ": "30deg",
+              "translateY": "-220px"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "clock",
+            "animation": {
+              "duration": 1000,
+              "opacity": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "step4",
+      "default": {
+        "actions": [["textelement", "setTitle", "Dip the rod into the machine"]]
+      },
+      "props": [
+        {
+          "image": "./images/step3/cutter.png",
+          "position": { "x": "200px", "y": "25%" },
+          "container": "step3",
+          "dimensions": { "h": "400px", "w": "400px" },
+          "classes": "",
+          "label": ["Lab cutter", 20],
+          "pointofinterests": [
+            {
+              "id": "cutter-p1",
+              "x": 100,
+              "y": 330,
+              "cb": [
+                [
+                  "textelement",
+                  "setTitle",
+                  "Copper rod covered with zinc cut in two pecies along y-axis"
+                ],
+                ["step", "=", "complete"]
+              ]
+            }
+          ]
+        },
+        {
+          "id": "crosssection",
+          "image": "./images/step3/section.png",
+          "position": { "x": "80%", "y": "60%" },
+          "container": "step3",
+          "dimensions": { "h": "100px", "w": "100px" },
+          "classes": ["hidden"],
+          "pointofinterests": []
+        }
+      ],
+      "sequence": [
+        {
+          "target": "cutter-p1",
+          "action": {
+            "type": "INTERACTION",
+            "context": "crosssection",
+            "animation": {
+              "opacity": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "step5",
+      "default": {
+        "actions": [
+          ["step", "=", "complete"],
+          [
+            "textelement",
+            "setTitle",
+            "The sectioned surface is polished on belt grinder"
+          ]
+        ]
+      },
+
+      "props": [
+        {
+          "id": "hand-sample-belt",
+          "image": "./images/step4/hand.svg",
+          "position": { "x": "40%", "y": "-10%" },
+          "dimensions": { "h": "600px", "w": "600px" },
+          "classes": "",
+          "pointofinterests": []
+        },
+        {
+          "id": "belt-wheel-one",
+          "image": "./images/step4/rotating-arrow.svg",
+          "position": { "x": "260px", "y": "355px" },
+          "dimensions": { "h": "40px", "w": "40px" },
+          "classes": ["rotating", "hidden"],
+          "pointofinterests": []
+        },
+        {
+          "id": "belt-wheel-two",
+          "image": "./images/step4/rotating-arrow.svg",
+          "position": { "x": "515px", "y": "345px" },
+          "dimensions": { "h": "40px", "w": "40px" },
+          "classes": ["rotating", "hidden"],
+          "pointofinterests": []
+        },
+        {
+          "image": "./images/step4/beltgrinder.svg",
+          "position": { "x": "100px", "y": "0%" },
+          "container": "step3",
+          "dimensions": { "h": "600px", "w": "600px" },
+          "classes": "",
+          "pointofinterests": [],
+          "label": ["Bell grinder", 100]
+        }
+      ],
+      "sequence": [
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "hand-sample-belt",
+            "duration": 1000,
+            "animation": {
+              "translateY": "50px",
+              "translateX": "-120px",
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "belt-wheel-one",
+            "duration": 1000,
+            "animation": {
+              "duration": 0,
+              "opacity": 1,
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "belt-wheel-two",
+            "animation": {
+              "duration": 3000,
+              "opacity": 1,
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "hand-sample-belt",
+            "duration": 1000,
+            "animation": {
+              "translateY": "0px",
+              "translateX": "0px",
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "belt-wheel-one",
+            "duration": 1000,
+            "animation": {
+              "duration": 0,
+              "opacity": 0,
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "belt-wheel-two",
+            "duration": 1000,
+            "animation": {
+              "duration": 0,
+              "opacity": 0,
+              "easing": "easeInOutQuad"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "step6",
+      "default": {
+        "actions": [
+          [
+            "textelement",
+            "setTitle",
+            "Then the surface is polished over velvet polishing paper"
+          ],
+          ["step", "=", "complete"]
+        ]
+      },
+      "props": [
+        {
+          "image": "./images/step5/polish_paper.svg",
+          "position": { "x": "150px", "y": "20%" },
+          "container": "step3",
+          "dimensions": { "h": "600px", "w": "600px" },
+          "classes": "",
+          "pointofinterests": [],
+          "label": ["Velvet Polish paper", 200]
+        },
+        {
+          "id": "polish-hand",
+          "image": "./images/step4/hand.svg",
+          "position": { "x": "300px", "y": "-5%" },
+          "container": "step3",
+          "dimensions": { "h": "600px", "w": "600px" },
+          "classes": [],
+          "pointofinterests": []
+        }
+      ],
+      "sequence": [
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "polish-hand",
+            "duration": 1000,
+            "animation": {
+              "translateY": "100px",
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "polish-hand",
+            "duration": 1000,
+            "animation": {
+              "translateX": "-200px",
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "polish-hand",
+            "duration": 1000,
+            "animation": {
+              "translateX": "0px",
+              "translateY": "0px",
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "polish-hand",
+            "duration": 1000,
+            "animation": {
+              "translateY": "100px",
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "polish-hand",
+            "duration": 1000,
+            "animation": {
+              "translateX": "-200px",
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "polish-hand",
+            "duration": 1000,
+            "animation": {
+              "translateX": "0px",
+              "translateY": "0px",
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "polish-hand",
+            "duration": 1000,
+            "animation": {
+              "translateY": "100px",
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "polish-hand",
+            "duration": 1000,
+            "animation": {
+              "translateX": "-200px",
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "polish-hand",
+            "duration": 1000,
+            "animation": {
+              "translateX": "0px",
+              "translateY": "0px",
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "polish-hand",
+            "duration": 1000,
+            "animation": {
+              "translateY": "100px",
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "polish-hand",
+            "duration": 1000,
+            "animation": {
+              "translateX": "-200px",
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "polish-hand",
+            "duration": 1000,
+            "animation": {
+              "translateX": "0px",
+              "translateY": "0px",
+              "easing": "easeInOutQuad"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "step7",
+      "default": {
+        "actions": [
+          ["textelement", "setTitle", "The surface is etched with FeCl2"]
+        ]
+      },
+      "props": [
+        {
+          "id": "etching",
+          "image": "./images/step6/etching_with_hand.svg",
+          "position": { "x": "45%", "y": "40%" },
+          "container": "step3",
+          "dimensions": { "h": "400px", "w": "400px" },
+          "classes": [],
+          "pointofinterests": []
+        },
+        {
+          "id": "cotton",
+          "image": "./images/step6/hand_cotton.svg",
+          "position": { "x": "45%", "y": "0%" },
+          "container": "step3",
+          "dimensions": { "h": "500px", "w": "500px" },
+          "classes": [],
+          "pointofinterests": [
+            {
+              "id": "cotton-p-1",
+              "x": 170,
+              "y": 270,
+              "cb": [["step", "=", "complete"]]
+            },
+            {
+              "id": "cotton-p-2",
+              "x": 170,
+              "y": 270,
+              "cb": []
+            }
+          ]
+        },
+
+        {
+          "id": "fecl2",
+          "image": "./images/step6/afc_bottle.png",
+          "position": { "x": "0", "y": "40%" },
+          "container": "step3",
+          "dimensions": { "h": "300px", "w": "400px" },
+          "classes": "",
+          "label": ["FeCl2 bottle", -30],
+          "pointofinterests": []
+        },
+        {
+          "id": "fecl2-cap",
+          "image": "./images/step6/cap.svg",
+          "position": { "x": "7%", "y": "42%" },
+          "container": "step3",
+          "dimensions": { "h": "300px", "w": "300px" },
+          "classes": "",
+          "pointofinterests": [
+            {
+              "id": "fecl2-cap-p1",
+              "x": 180,
+              "y": 10,
+              "cb": []
+            },
+            {
+              "id": "fecl2-cap-p2",
+              "x": 180,
+              "y": 10,
+              "cb": []
+            }
+          ]
+        }
+      ],
+      "sequence": [
+        {
+          "action": {
+            "type": "ELEMENT",
+            "context": "textelement",
+            "calls": [
+              {
+                "method": "open",
+                "param": true
+              },
+              {
+                "method": "setTitle",
+                "param": "FeCl2 solution will be used to etch the surface"
+              }
+            ]
+          }
+        },
+        {
+          "target": "fecl2-cap-p1",
+          "action": {
+            "type": "INTERACTION",
+            "context": "fecl2-cap",
+            "duration": 1000,
+            "animation": {
+              "translateY": "-140px",
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+
+        {
+          "target": "cotton-p-1",
+          "action": {
+            "type": "INTERACTION",
+            "context": "fecl2",
+            "duration": 1000,
+            "animation": {
+              "rotate": 20,
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "cotton",
+            "duration": 1000,
+            "animation": {
+              "translateX": "-270px",
+              "translateY": "10px",
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "fecl2",
+            "duration": 1000,
+            "animation": {
+              "rotate": 0,
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "cotton",
+            "duration": 1000,
+            "animation": {
+              "translateX": 0,
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "target": "fecl2-cap-p2",
+          "action": {
+            "type": "INTERACTION",
+            "context": "fecl2-cap",
+            "duration": 1000,
+            "animation": {
+              "translateY": 0,
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "etching",
+            "duration": 1000,
+            "animation": {
+              "opacity": 1,
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "target": "cotton-p-2",
+          "action": {
+            "type": "INTERACTION",
+            "context": "cotton",
+            "duration": 1000,
+            "animation": {
+              "translateY": "80px",
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "cotton",
+            "duration": 1000,
+            "animation": {
+              "translateX": [
+                { "value": -10 },
+                { "value": 10, "delay": 100 },
+                { "value": -10, "delay": 100 },
+                { "value": 10, "delay": 100 },
+                { "value": -10, "delay": 100 },
+                { "value": 10, "delay": 100 },
+                { "value": 0, "delay": 100 }
+              ],
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "cotton",
+            "duration": 1000,
+            "animation": {
+              "translateX": 0,
+              "translateY": 0,
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "NEXT-SCENE"
+          }
+        }
+      ]
+    },
+    {
+      "name": "step8",
+      "quiz": [],
+      "default": {
+        "actions": []
+      },
+      "props": [
+        {
+          "id": "man",
+          "image": "./images/step7/man.svg",
+          "position": { "x": "80%", "y": "20%" },
+          "container": "step3",
+          "dimensions": { "h": "500px", "w": "500px" },
+          "classes": "",
+          "pointofinterests": []
+        },
+        {
+          "id": "microscope",
+          "image": "./images/step7/microscope_specimen.png",
+          "position": { "x": "10%", "y": "44%" },
+          "container": "step3",
+          "dimensions": { "h": "300px", "w": "300px" },
+          "classes": "",
+          "pointofinterests": [
+            {
+              "id": "microscope-p1",
+              "x": 180,
+              "y": 10,
+              "cb": []
+            }
+          ],
+          "label": ["Microscope", -30]
+        },
+        {
+          "id": "scope",
+          "image": "./images/step7/scope_brass.png",
+          "position": { "x": "40%", "y": "15%" },
+          "dimensions": { "h": "350px", "w": "350px" },
+          "classes": ["hidden"],
+          "pointofinterests": []
+        },
+        {
+          "id": "zoom",
+          "image": "./images/result.png",
+          "position": { "x": "65%", "y": "13%" },
+          "container": "step3",
+          "dimensions": { "h": "200px", "w": "260px" },
+          "classes": ["rounded-full", "hidden"],
+          "pointofinterests": [
+            {
+              "id": "zoom-p1",
+              "x": 180,
+              "y": 10,
+              "cb": []
+            }
+          ]
+        }
+      ],
+      "sequence": [
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "man",
+            "duration": 1000,
+            "animation": {
+              "translateX": -200,
+              "translateY": 0,
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "microscope",
+            "duration": 1000,
+            "animation": {
+              "scale": 0.8,
+              "translateX": 180,
+              "translateY": -100,
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "man",
+            "duration": 1000,
+            "animation": {
+              "endDelay": 1000,
+              "duration": 0.2,
+              "opacity": 0,
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "microscope",
+            "duration": 1000,
+            "animation": {
+              "scale": 1,
+              "translateX": 0,
+              "translateY": 0,
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "scope",
+            "duration": 1000,
+            "animation": {
+              "opacity": 1,
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "zoom",
+            "animation": {
+              "duration": 100,
+              "opacity": 1,
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "target": "zoom-p1",
+          "action": {
+            "type": "INTERACTION",
+            "context": "zoom",
+            "animation": {
+              "duration": 1000,
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "scope",
+            "duration": 1000,
+            "animation": {
+              "duration": 0,
+              "opacity": 0,
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "microscope",
+            "duration": 1000,
+            "animation": {
+              "duration": 100,
+              "opacity": 0,
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "ANIMATION",
+            "context": "zoom",
+            "duration": 1000,
+            "animation": {
+              "translateX": "-250px",
+              "translateY": "120px",
+              "scale": 2.4,
+              "easing": "easeInOutQuad"
+            }
+          }
+        },
+        {
+          "action": {
+            "type": "NEXT-SCENE"
+          }
+        },
+        {
+          "action": {
+            "type": "ELEMENT",
+            "context": "dialog",
+            "calls": [
+              {
+                "method": "openDialog",
+                "param": "quiz"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "step9",
+      "quiz": [],
+      "default": {},
+      "props": [],
+      "sequence": []
+    }
+  ]
+}

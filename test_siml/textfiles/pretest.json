@@ -1,0 +1,65 @@
+{
+    "questions": [
+      {
+        "question": "What is the primary purpose of roasting sphalerite concentrate in the presence of lime and steam?",
+        "options": {
+          "A": "To reduce emissions of SO2",
+          "B": "To enhance the sulfide content",
+          "C": "To produce hydrogen gas",
+          "D": "To increase the temperature of the furnace"
+        },
+        "answer": "A",
+        "explanation": "Roasting with lime and steam aims to reduce SO2 emissions.",
+        "difficulty": "Intermediate"
+      },
+      {
+        "question": "Which reaction scheme is utilized in the novel process described for transforming metal sulfides to oxides?",
+        "options": {
+          "A": "Direct oxidation",
+          "B": "Reduction-oxidation",
+          "C": "Steam reforming",
+          "D": "Carbonization"
+        },
+        "answer": "B",
+        "explanation": "The described process utilizes a combination of reduction and oxidation reactions to transform metal sulfides to oxides.",
+        "difficulty": "Intermediate"
+      },
+      {
+        "question": "What role does lime play in the roasting process?",
+        "options": {
+          "A": "It acts as a catalyst",
+          "B": "It provides heat energy",
+          "C": "It reacts with hydrogen sulfide to form calcium sulfide",
+          "D": "It prevents the formation of steam"
+        },
+        "answer": "C",
+        "explanation": "Lime reacts with hydrogen sulfide to form a stable compound, calcium sulfide.",
+        "difficulty": "Intermediate"
+      },
+      {
+        "question": "At what temperature is the furnace maintained during the roasting process?",
+        "options": {
+          "A": "500°C",
+          "B": "800°C",
+          "C": "1000°C",
+          "D": "1200°C"
+        },
+        "answer": "B",
+        "explanation": "The furnace is maintained at 800°C during the roasting process.",
+        "difficulty": "Intermediate"
+      },
+      {
+        "question": "Which compound is analyzed in the calcine to assess the success of the roasting process?",
+        "options": {
+          "A": "Calcium oxide",
+          "B": "Zinc sulfide",
+          "C": "Zinc oxide",
+          "D": "Hydrogen sulfide"
+        },
+        "answer": "C",
+        "explanation": "The presence of zinc oxide in the calcine indicates the success of the roasting process.",
+        "difficulty": "Intermediate"
+      }
+    ]
+  }
+  

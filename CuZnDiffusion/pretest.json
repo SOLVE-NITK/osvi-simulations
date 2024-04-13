@@ -1,0 +1,77 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "What is diffusion?",
+      "answers": {
+        "a": "Diffusion is the movement of particles from an area of higher concentration to an area of lower concentration, resulting in the equal distribution of particles.",
+        "b": "Diffusion is the movement of particles from an area of lower concentration to an area of higher concentration, resulting in the unequal distribution of particles.",
+        "c": "Diffusion is the movement of particles within a solid material, typically resulting in the formation of voids or pores.",
+        "d": "Diffusion is the movement of particles along the surface of a material, leading to changes in its physical properties."
+      },
+      "correctAnswer": "a",
+      "difficulty": "Beginner",
+      "explanation": "Diffusion is the process of particles moving from an area of higher concentration to an area of lower concentration, leading to the equal distribution of particles."
+    },
+    {
+      "question": "What is the melting point of Zinc?",
+      "answers": {
+        "a": "500 degrees C",
+        "b": "750 degrees C",
+        "c": "420 degrees C",
+        "d": "1000 degrees C"
+      },
+      "correctAnswer": "c",
+      "difficulty": "Beginner",
+      "explanation": "The melting point of Zinc is approximately 420 degrees Celsius."
+    },
+    {
+      "question": "What is Fick’s law?",
+      "answers": {
+        "a": "Fick's Law describes the rate of diffusion of particles in a fluid medium.",
+        "b": "Fick's Law describes the relationship between temperature and pressure in gases.",
+        "c": "Fick's Law describes the relationship between force and acceleration in Newtonian physics.",
+        "d": "Fick's Law describes the rate of diffusion of particles in a medium, stating that the rate of diffusion is directly proportional to the concentration gradient and inversely proportional to the distance travelled."
+      },
+      "correctAnswer": "d",
+      "difficulty": "Intermediate",
+      "explanation": "Fick's Law describes the rate of diffusion of particles in a medium, stating that the rate of diffusion is directly proportional to the concentration gradient and inversely proportional to the distance travelled."
+    },
+    {
+      "question": "Between interstitial and substitutional diffusion, which is faster and why?",
+      "answers": {
+        "a": "Interstitial diffusion is faster because smaller atoms can easily move between lattice sites, whereas substitutional diffusion involves the exchange of larger atoms, which encounter more resistance.",
+        "b": "Substitutional diffusion is faster because atoms directly replace existing atoms within the lattice, whereas interstitial diffusion requires atoms to navigate through the lattice structure.",
+        "c": "Substitutional diffusion is faster because it involves the movement of atoms into spaces between existing atoms, allowing for quicker migration compared to the exchange process in interstitial diffusion.",
+        "d": "Interstitial diffusion is faster because it occurs at higher temperatures, promoting more rapid atomic movement compared to the slower process of substitutional diffusion."
+      },
+      "correctAnswer": "a",
+      "difficulty": "Advanced",
+      "explanation": "Interstitial diffusion is faster because smaller atoms can more easily move between lattice sites, whereas substitutional diffusion involves the exchange of larger atoms, which encounter more resistance."
+    },
+    {
+      "question": "Which of the following is not an application of diffusion in metallurgy?",
+      "answers": {
+        "a": "Carburizing and nitriding.",
+        "b": "Alloying processes.",
+        "c": "Welding processes.",
+        "d": "Forging processes."
+      },
+      "correctAnswer": "d",
+      "difficulty": "Advanced",
+      "explanation": "Forging processes involve shaping metals through mechanical deformation, typically by applying compressive forces to the metal workpiece. This shaping is achieved without significant diffusion of atoms within the metal."
+    },
+    {
+      "question": "What is the phenomenon observed when Zinc diffuses in Copper?",
+      "answers": {
+        "a": "Ostwald Ripening.",
+        "b": "Kirkendall Effect.",
+        "c": "Segregation.",
+        "d": "Precipitation hardening."
+      },
+      "correctAnswer": "b",
+      "difficulty": "Advanced",
+      "explanation": "The Kirkendall effect, which is found in the interdiffusion of Cu and Zn atoms, is a phenomenon that occurs in the binary system during diffusion, where Kirkendall voids are formed due to the diffusion of atoms at different rates."
+    }
+  ]
+}

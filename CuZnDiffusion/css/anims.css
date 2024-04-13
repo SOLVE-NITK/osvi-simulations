@@ -1,0 +1,70 @@
+/* ANIMATIONS */
+
+.blinking {
+  animation: blinker 1s linear infinite;
+}
+
+.rotating {
+  animation: rotater 1s linear forwards infinite;
+}
+
+.polishing {
+  animation: polisher 4s linear alternate infinite;
+}
+
+.pinging {
+  cursor: pointer;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: pinging 0.5s cubic-bezier(0, 0, 0.2, 1) infinite alternate;
+}
+
+.hovering {
+  animation: rotating 2s cubic-bezier(0, 0, 0.2, 1) alternate infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes rotater {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes polisher {
+  0% {
+    transform: translateY(-40px);
+  }
+  25% {
+    transform: translateX(100px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes pinging {
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes rotating {
+  0% {
+    transform: translateX(-10px);
+  }
+  25% {
+    transform: translateX(10px);
+  }
+  50% {
+    transform: translateX(0px);
+  }
+}

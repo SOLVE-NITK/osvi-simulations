@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lab Experiment Simulation</title>
+    <h1>Heat Treatment Of Steels</h1>
+    <h2>
+      Aim: To give various heat treatments like annealing, normalizing and
+      hardening to a 0.4%C steel and study the effect of these treatments on
+      structure and properties.
+    </h2>
+    <h2>Apparatus Required:</h2>
+    <p>
+      Steel Samples, polish papers, belt grinder, furnace, Rockwell hardness
+      tester, microscope
+    </p>
+    <h2>Procedure:</h2>
+    <style>
+      #hand {
+        position: center;
+        width: 350px; /* Adjust size as needed */
+        height: auto;
+      }
+
+      h1 {
+        text-align: center; /* Center align the header */
+        margin-top: 30px; /* Adjust the top margin to move the header down */
+      }
+    </style>
+  </head>
+  <body>
+    <img id="hand" src="blocks.png" alt="hand" />
+    <img id="pehla" src="first.png" alt="Pehla" />
+    <button id="next">Next</button>
+    <p>
+      2024 SOLVE - The Virtual Lab @ NITK Surathkal, Department of Water
+      Resources & Ocean Engineering.
+    </p>
+
+    <script>
+      // Add event listener to the button
+      document.getElementById("next").addEventListener("click", function () {
+        // Redirect to the first page
+        window.location.href = "index1.html";
+      });
+    </script>
+
+    <script src="script.js"></script>
+  </body>
+</html>

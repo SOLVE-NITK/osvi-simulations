@@ -1,0 +1,65 @@
+{
+    "questions": [
+      {
+        "question": "What is the purpose of passing steam over the sphalerite concentrate and lime mixture during roasting?",
+        "options": {
+          "A": "To cool down the reaction vessel",
+          "B": "To reduce the concentration of zinc oxide",
+          "C": "To oxidize the sulfide to oxide",
+          "D": "To increase the concentration of hydrogen sulfide"
+        },
+        "answer": "C",
+        "explanation": "Steam aids in oxidizing sulfides to oxides during the roasting process.",
+        "difficulty": "Intermediate"
+      },
+      {
+        "question": "Which of the following reactions represents the overall reaction occurring during the roasting process?",
+        "options": {
+          "A": "ZnS(s) + H2O(g) → ZnO(s) + H2S(g)",
+          "B": "CaO(s) + H2S(g) → CaS(s) + H2O(g)",
+          "C": "ZnS(s) + CaO(s) → ZnO(s) + CaS(s)",
+          "D": "H2S(g) + CaO(s) → CaS(s) + H2O(g)"
+        },
+        "answer": "C",
+        "explanation": "This equation represents the overall transformation of zinc sulfide to zinc oxide and calcium sulfide.",
+        "difficulty": "Intermediate"
+      },
+      {
+        "question": "What is the purpose of analyzing the calcine for ZnO after roasting?",
+        "options": {
+          "A": "To determine the purity of the lime used",
+          "B": "To assess the concentration of zinc oxide produced",
+          "C": "To identify any impurities in the steam",
+          "D": "To monitor the temperature of the furnace"
+        },
+        "answer": "B",
+        "explanation": "Analyzing ZnO content confirms the success of the roasting process.",
+        "difficulty": "Intermediate"
+      },
+      {
+        "question": "How long is the roasting process carried out for?",
+        "options": {
+          "A": "30 minutes",
+          "B": "1 hour",
+          "C": "2 hours",
+          "D": "4 hours"
+        },
+        "answer": "B",
+        "explanation": "The roasting process is conducted for one hour",
+        "difficulty": "Easy"
+      },
+      {
+        "question": "Which compound is formed by the reaction of hydrogen sulfide with lime during the roasting process?",
+        "options": {
+          "A": "Zinc oxide",
+          "B": "Calcium oxide",
+          "C": "Calcium sulfide",
+          "D": "Zinc sulfide"
+        },
+        "answer": "C",
+        "explanation": "Lime reacts with hydrogen sulfide to form calcium sulfide.",
+        "difficulty": "Intermediate"
+      }
+    ]
+  }
+  

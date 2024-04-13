@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SOLVE</title>
+    <link rel="stylesheet" href="css/sgca.css" />
+    <script type="text/javascript" src="js/jquerymin.js"></script>
+    <script type="text/javascript" src="js/sgca.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let simsubscreennum = 0;
+        let temp = 0;
+        let lnt = 0;
+        let sample = 1;
+        let n;
+        let sampletype = 1;
+    </script>
+    <style>
+        .blink {
+            text-decoration: blink;
+            animation: blink 0.5s alternate infinite ease-in-out;
+            animation-direction: alternate;
+        }
+
+
+        @keyframes blink {
+            from {
+                opacity: 1.0;
+            }
+
+            to {
+                opacity: 0.0;
+            }
+        }
+
+        .tooltip {
+            display: none;
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 5px;
+            border: 1px solid #ccc;
+            /* Adjust position to move above the box and center it */
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .note {
+            position: absolute;
+            display: none;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 8px;
+            width: 200px;
+            z-index: 20;
+            /* Adjust as needed */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .arrow {
+            width: 50px;
+            height: 32px;
+        }
+
+        .reading-input {
+            position: absolute;
+            top: 10px;
+            display: none;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 4px;
+            /* width: 200px; */
+            z-index: 20;
+            /* Adjust as needed */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .calibration-icon {
+            position: absolute;
+            right: 10px;
+            top: 65px;
+            cursor: pointer;
+        }
+
+        .calibration-tooltip {
+            display: none;
+            position: absolute;
+            right: 0px;
+            top: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 5px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            font-size: 12px;
+            z-index: 9999;
+        }
+
+        .calibration-popup {
+            display: none;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+            overflow: scroll;
+        }
+
+        .close-button {
+            position: sticky;
+            background-color: #ccc;
+            border-radius: 50%;
+            height: 32px;
+            width: 32px;
+            font-size: 20px;
+            top: 10px;
+            left: calc(100% - 40px);
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body style="margin:0; font-family:verdana; font-size:14px;">
+
+    <!--Simulation Screen start		-->
+    <div id="simscreen">
+
+        <!--Title of Simulation		-->
+        <div id="title">
+            <h4>
+                Even Temperature Zone
+            </h4>
+        </div>
+
+        <!--SubScreen Home	-->
+        <div class="simsubscreen" id="canvas0" style="visibility: hidden;">
+            <h4 class="incanvas">Objective</h4>
+            <p class="incanvas" style="font-size:15px; padding-bottom: 1rem;">To find the even
+                temperature zone of a
+                tubular furnace.</p>
+            <h4 class="incanvas">Apparatus used:</h4>
+            <p class="incanvas" style="font-size:14px; padding-bottom: 1rem;">Tubular furnace,
+                Voltmeter, Thermostat,
+                Thermocouple, Stand.
+            </p>
+
+            <!-- Description -->
+            <div class="descont" style="border-bottom:1px dotted ; color:red; z-index: 500;">Description
+                <span class="desctext" style=" font-size:16px;">
+                    The temperature in a tubular furnace varies from one end to the other due
+                    to various heat losses. The losses include radiation and convection. Hence it becomes
+                    essential to find a zone in a furnace where the temperature practically remains constant.
+                </span>
+            </div>
+            <div style="position: relative; display: flex;">
+                <img src="./images/human.png" alt="Human" style="position:relative; margin-left:20px;margin-top:28px;">
+
+                <img src="./images/table.svg" height="350px" alt="Table" style="position:relative;">
+                <!-- blank spans to cover different apparatus in imag, add red border to show -->
+                <div class="instrument" style="position: absolute;
+                    top: 126px;
+                    left: 224px;
+                    width: 75px;
+                    height: 58px;"><span class="tooltip">Thermostat</span>
+                </div>
+                <div class="instrument" style="position: absolute;
+                    top: 18px;
+                    left: 321px;
+                    width: 131px;
+                    height: 167px;"><span class="tooltip">Tubular Furnace</span></div>
+                <div class="instrument" style="position: absolute;    top: 139px;
+                    right: 185px;
+                    width: 104px;
+                    height: 47px;"><span class="tooltip">Voltmeter</span></div>
+                <div class="instrument" style="position: absolute;      top: 40px;
+                    right: 83px;
+                    width: 72px;
+                    height: 144px;"><span class="tooltip">Thermocouple with Stand</span></div>
+            </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+
+                    const instruments = document.getElementsByClassName('instrument');
+                    // Add event listeners to show tooltip on hover
+                    for (let i = 0; i < instruments.length; i++) {
+                        instruments[i].addEventListener('mouseover', function () {
+                            instruments[i].getElementsByTagName('span')[0].style.display = 'block';
+                        });
+
+                        instruments[i].addEventListener('mouseout', function () {
+                            instruments[i].getElementsByTagName('span')[0].style.display = 'none';
+                        });
+                    }
+                });
+            </script>
+        </div>
+
+        <div class="simsubscreen" id="canvas1" style="visibility: hidden;">
+            <strong id="titlestep" class="incanvas">STEP </strong>
+            <span class="circlebg" id="stepnumber">&nbsp;1&nbsp;</span>
+            <p id="pumptext" class="steptext" style="font-family:verdana; font-size:14px;"> Turn on the switch to heat
+                the tubular furnace at a constant temperature of 800°C</p>
+            <br>
+            <div style="position: relative; display: flex; height: 90%; align-items: center;">
+                <img src="./images/furnace.svg" alt="Tubular Furnace" style="position:relative; height: 400px;">
+                <img src="./images/press-switch.svg" id="pointingHand" alt="moving hand"
+                    style="position: fixed; width: 100px;  transform: rotate(28deg); pointer-events:none; z-index: 25;">
+                <div id="thermostat-on"
+                    style="display: block; width: 10px; height: 10px; position: absolute; top: 353px;left: 152px; cursor: pointer;">
+                </div>
+                <div id="temperature-value"
+                    style="display: block; width: 42px; height: 16px; background:white;  position: absolute; top: 360px;left: 106px; text-align: right;">
+                    000°C
+                </div>
+                <img src="./images/arrow.png" class="arrow blink" style="position: absolute;     transform: rotate(-90deg); top: 312px;
+                    left: 132px;">
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+
+                        let hand = document.getElementById('pointingHand');
+                        document.addEventListener('mousemove', function (e) {
+                            let mouseX = e.clientX;
+                            let mouseY = e.clientY;
+                            hand.style.left = mouseX - 10 + 'px';
+                            hand.style.top = mouseY + 16 + 'px';
+                        });
+
+                        let thermostatOn = document.getElementById('thermostat-on');
+                        let temperatureValue = document.getElementById('temperature-value');
+
+                        thermostatOn.addEventListener('click', function () {
+                            temperatureValue.textContent = '800°C';
+                            // hide hand
+                            document.getElementById('pointingHand').style.display = "none";
+
+                            // show next button
+                            document.getElementById("nextButton").style.visibility = "visible";
+
+                            // remove arrow
+                            document.getElementById('canvas1').getElementsByClassName('arrow')[0].style.display = 'none';
+                        });
+                    });
+
+                </script>
+            </div>
+        </div>
+
+        <!--Step2	-->
+        <div class="simsubscreen" id="canvas2" style="visibility:hidden">
+            <strong id="step2_titlestep" class="incanvas">STEP </strong>
+            <span class="circlebg" id="step2_stepnumber">&nbsp;2&nbsp;</span>
+            <p id="step2_pumptext" class="steptext" style="font-family:verdana; font-size:14px;">Insert a standard
+                thermocouple into the <strong>right</strong> of furnace and note the readings starting from center of
+                furnace and moving
+                out
+                2cms
+                each time.
+            </p>
+            <br>
+            <div style="position: relative; display: flex; height: 90%;">
+                <img src="./images/furnace2.svg" alt="Tubular Furnace"
+                    style="position:absolute; height: 380px; bottom: 5%; left: 0; z-index: 10;">
+                <div id="step2_thermocoupleGroup"
+                    style="position: absolute; right: 0; z-index:5; top:207px; transition: transform 2s ease;">
+                    <img src="./images/thermocouple2.svg" id="step2_thermocouple1" height="80px" alt="Thermocouple">
+                    <div id="step2_hand-clickarea"
+                        style="display: block; width: 67px; height: 58px;  position: absolute; right:20px; top:0px;">
+                    </div>
+                    <img src="./images/stand.svg" id="step2_stand1" lt="thermocouple stand" style="position: absolute;
+                    display: none;
+                    height: 180px;
+                    z-index: 9;
+                    right: 0px;
+                    bottom: -80px;
+                    transform: translate(-100px, -180px);
+                    transition: transform 2s ease;
+                    ">
+                </div>
+                <div style=" position: absolute; right: 0; bottom: 0;">
+                    <img src="./images/voltmeter.svg" height="250px" alt="voltmeter">
+                    <div id="step2_voltmeter-value" style="display: block; text-align:right; width: 77px; height: 21px;  position: absolute; bottom: 35px;
+                    right: 76px; ">
+                        00.00 mV
+                    </div>
+                </div>
+
+                <!-- create a readings input on top right, user has to enter readings, if not correct, show error -->
+                <div style="position: absolute; display: none; top: 0; right: 0; z-index: 100;" class="reading-input"
+                    id="step2_right-reading-input">
+                    <label for="step2_reading" style="font-size: 16px;">Enter Reading: <span id="step2_dis"
+                            style="font-size: 16px;">0 cm</span>&nbsp;</label>
+                    <input type="text" id="step2_reading"
+                        style="width: 100px; height: 30px;  text-align: right; padding-right: 5px; font-size: 16px;">
+                    <span style="font-size: 16px;">mV</span>
+                    <button id="step2_submit-reading-right"
+                        style="width: 50px; height: 30px;  font-size: 16px;">Save</button>
+                </div>
+
+                <div class="note" style="top: 50px; right: 50px;">
+                    <h3 style="margin: 0; padding: 0;">Note</h3>
+                    <p>Click on the stand </p>
+                </div>
+
+                <img src="./images/arrow.png" class="arrow blink" style="position: absolute; transform: rotate(-90deg); top: 160px;
+                    right: 32px;">
+            </div>
+            <script>
+                // Define right readings for Step 2
+                const rightReadings = [
+                    34.2, 34.2, 34, 33.3, 32.9, 31.4, 30.6, 30.0, 29.4, 25.2, 19.8, 16.4
+                ];
+
+                document.addEventListener('DOMContentLoaded', function () {
+                    // Select necessary elements
+                    const step2_handClickArea = document.getElementById('step2_hand-clickarea');
+                    const step2_stand = document.getElementById('step2_stand1');
+                    const step2_thermocoupleGroup = document.getElementById('step2_thermocoupleGroup');
+                    const step2_arrow = document.querySelector('#canvas2 .arrow');
+                    const step2_note = document.querySelector('#canvas2 .note');
+
+
+                    // Add click event to stand
+                    document.getElementById('step2_stand1').addEventListener('click', () => {
+                        // Move stand to initial position
+                        step2_stand.style.transform = "translate(0px, 0px)";
+                        step2_arrow.style.display = 'none';
+
+                        // Disable click event on stand and hand click area
+                        step2_stand.style.pointerEvents = 'none';
+                        step2_handClickArea.style.display = 'none';
+                        takeStep2RightReadings();
+                    });
+
+                    // Move thermocouple to initial position on hand click
+                    const firstMove = step2_handClickArea.addEventListener("click", () => {
+                        step2_arrow.style.display = 'none';
+                        step2_thermocoupleGroup.style.transform = "translate(-175px,0px)";
+
+                        // Replace image with thermocouple without hand after delay
+                        setTimeout(() => {
+                            step2_thermocoupleGroup.getElementsByTagName('img')[0].src = "./images/thermocouple-nohand.svg";
+
+                            // Move stand to appropriate position and display it
+                            step2_stand.style.transform = "translate(80px, -180px)";
+                            step2_stand.style.display = 'block';
+
+                            // Rotate arrow and show it
+                            step2_arrow.style.display = 'block';
+                            step2_arrow.style.transform = 'rotate(0deg)';
+                            step2_arrow.style.top = '100px';
+                        }, 1000);
+                    }, { once: true });
+
+                    // Function to take right readings
+                    const takeStep2RightReadings = () => {
+                        let i = 0;
+
+                        // Function to move thermocouple and display readings input
+                        const move_thermocouple = () => {
+                            // Change note to instruct user to enter reading
+                            step2_note.getElementsByTagName('p')[0].innerText = 'Enter the observed reading above.'
+
+                            // Disable pointer events on hand click area
+                            step2_handClickArea.style.pointerEvents = 'none';
+
+                            // Display readings and set values
+                            if (i < rightReadings.length) {
+                                document.getElementById('step2_thermocouple1').style.transform = `translate(${i * 10}px,0px)`;
+                                document.getElementById('step2_voltmeter-value').textContent = `${rightReadings[i]} mV`;
+                                document.getElementById("step2_dis").innerText = `${i * 2}cm`;
+                                document.getElementById('step2_right-reading-input').style.display = 'block';
+                            }
+                        };
+
+                        // Add click event to thermocouple to initiate movement
+                        document.getElementById('step2_thermocouple1').addEventListener("click", move_thermocouple);
+
+                        // Add event listener to save button for reading input
+                        document.getElementById('step2_submit-reading-right').addEventListener('click', () => {
+                            const reading = document.getElementById('step2_reading').value;
+
+                            // Check if reading is correct
+                            if (i == rightReadings.length - 1) {
+                                // Hide note when all readings are taken
+                                step2_note.style.display = 'none';
+                                document.getElementById("nextButton").style.visibility = "visible";
+                                document.getElementById('step2_thermocouple1').removeEventListener('click', move_thermocouple)
+                            }
+
+                            // Check if entered reading matches expected reading
+                            if (reading == rightReadings[i]) {
+                                // Move to next reading
+                                i = i + 1;
+                                document.getElementById('step2_right-reading-input').style.display = 'none';
+                                step2_note.getElementsByTagName('p')[0].innerText = 'Click on thermocouple to move it out by 2cm.'
+                                step2_handClickArea.style.pointerEvents = 'auto';
+                            } else {
+                                // Show alert for incorrect reading
+                                alert('Reading is not correct');
+                            }
+                        });
+
+                        // Display note after delay
+                        setTimeout(() => {
+                            step2_note.style.display = 'block';
+                        }, 2000)
+
+                        // Trigger initial click on thermocouple
+                        document.getElementById('step2_thermocouple1').click()
+                    }
+                });
+            </script>
+        </div>
+
+        <!--Step3	-->
+        <div class="simsubscreen" id="canvas3" style="visibility:hidden">
+            <strong id="step3_titlestep" class="incanvas">STEP </strong>
+            <span class="circlebg" id="step3_stepnumber">&nbsp;3&nbsp;</span>
+            <p id="step3_pumptext" class="steptext" style="font-family:verdana; font-size:14px;">Insert a standard
+                thermocouple into the <strong>left</strong> of furnace and note the readings starting from center of
+                furnace and moving
+                out 2cms each time.
+            </p>
+            <br>
+            <div style="position: relative; display: flex; height: 90%;">
+                <img src="./images/furnace3.svg" alt="Tubular Furnace"
+                    style="position:absolute; height: 380px; bottom: 5%; right: 0; z-index: 10;">
+                <div id="step3_thermocoupleGroup"
+                    style="position: absolute; left: 0; z-index:5; top:207px; transition: transform 2s ease;">
+                    <img src="./images/thermocouple-inverted.svg" id="step3_thermocouple1" height="80px"
+                        alt="Thermocouple">
+                    <div id="step3_hand-clickarea"
+                        style="display: block; width: 67px; height: 58px;  position: absolute; left:20px; top:0px;">
+                    </div>
+                    <img src="./images/stand.svg" id="step3_stand1" lt="thermocouple stand" style="position: absolute;
+                    display: none;
+                    height: 180px;
+                    z-index: 9;
+                    left: 0px;
+                    bottom: -80px;
+                    transition: transform 2s ease;
+                    ">
+                </div>
+                <div style=" position: absolute; left: 0; bottom: 0;">
+                    <img src="./images/voltmeter-inverted.svg" height="250px" alt="voltmeter">
+                    <div id="step3_voltmeter-value" style="display: block; text-align:right; width: 77px; height: 21px;  position: absolute; bottom: 35px;
+                    right: 76px; ">
+                        00.00 mV
+                    </div>
+                </div>
+
+                <!-- create a readings input on top right, user has to enter readings, if not correct, show error -->
+                <div style="position: absolute; display: none; top: 10px; left: 0; z-index: 100;" class="reading-input"
+                    id="step3_left-reading-input">
+                    <label for="step3_reading" style="font-size: 16px;">Enter Reading: <span id="step3_dis"
+                            style="font-size: 16px;">0 cm</span>&nbsp;</label>
+                    <input type="text" id="step3_reading"
+                        style="width: 100px; height: 30px;  text-align: right; padding-right: 5px; font-size: 16px;">
+                    <span style="font-size: 16px;">mV</span>
+                    <button id="step3_submit-reading-right"
+                        style="width: 50px; height: 30px;  font-size: 16px;">Save</button>
+                </div>
+
+                <div class="note" style="top: 60px; left: 50px;">
+                    <h3 style="margin: 0; padding: 0;">Note</h3>
+                    <p>Click on the stand </p>
+                </div>
+
+                <img src="./images/arrow.png" class="arrow blink" style="position: absolute; transform: rotate(-90deg); top: 160px;
+                    left: 32px;">
+            </div>
+            <script>
+                // Define right readings for Step 2
+                const leftReadings = [
+                    33.5, 33.5, 32.4, 32.3, 32, 32, 31, 30.2, 28.3, 25.3, 19.6, 16.2
+                ];
+
+                document.addEventListener('DOMContentLoaded', function () {
+                    // Select necessary elements
+                    const step3_handClickArea = document.getElementById('step3_hand-clickarea');
+                    const step3_stand = document.getElementById('step3_stand1');
+                    const step3_thermocoupleGroup = document.getElementById('step3_thermocoupleGroup');
+                    const step3_arrow = document.querySelector('#canvas3 .arrow');
+                    const step3_note = document.querySelector('#canvas3 .note');
+
+                    // Add click event to stand
+                    document.getElementById('step3_stand1').addEventListener('click', () => {
+                        // Move stand to initial position
+                        step3_stand.style.transform = "translate(0px, 0px)";
+                        step3_arrow.style.display = 'none';
+
+                        // Disable click event on stand and hand click area
+                        step3_stand.style.pointerEvents = 'none';
+                        step3_handClickArea.style.display = 'none';
+                        takestep3LeftReadings();
+                    });
+
+                    // Move thermocouple to initial position on hand click
+                    const firstMove = step3_handClickArea.addEventListener("click", () => {
+                        step3_arrow.style.display = 'none';
+                        step3_thermocoupleGroup.style.transform = "translate(175px,0px)";
+
+                        // Replace image with thermocouple without hand after delay
+                        setTimeout(() => {
+                            step3_thermocoupleGroup.getElementsByTagName('img')[0].src = "./images/thermocouple-nohand-inverted.svg";
+
+                            // Move stand to appropriate position and display it
+                            step3_stand.style.transform = "translate(-80px, -180px)";
+                            step3_stand.style.display = 'block';
+
+                            // Rotate arrow and show it
+                            step3_arrow.style.display = 'block';
+                            step3_arrow.style.top = '100px';
+                            step3_arrow.style.transform = 'rotate(180deg)';
+                        }, 1000);
+                    }, { once: true });
+
+                    // Function to take right readings
+                    const takestep3LeftReadings = () => {
+                        let i = 0;
+
+                        // Function to move thermocouple and display readings input
+                        const move_thermocouple = () => {
+                            // Change note to instruct user to enter reading
+                            step3_note.getElementsByTagName('p')[0].innerText = 'Enter the observed reading above.'
+
+                            // Disable pointer events on hand click area
+                            step3_handClickArea.style.pointerEvents = 'none';
+
+                            // Display readings and set values
+                            if (i < leftReadings.length) {
+                                document.getElementById('step3_thermocouple1').style.transform = `translate(-${i * 10}px,0px)`;
+                                document.getElementById('step3_voltmeter-value').textContent = `${leftReadings[i]} mV`;
+                                document.getElementById("step3_dis").innerText = `${i * 2}cm`;
+                                document.getElementById('step3_left-reading-input').style.display = 'block';
+                            }
+                        };
+
+                        // Add click event to thermocouple to initiate movement
+                        document.getElementById('step3_thermocouple1').addEventListener("click", move_thermocouple);
+
+                        // Add event listener to save button for reading input
+                        document.getElementById('step3_submit-reading-right').addEventListener('click', () => {
+                            const reading = document.getElementById('step3_reading').value;
+
+                            // Check if reading is correct
+                            if (i == leftReadings.length - 1) {
+                                // Hide note when all readings are taken
+                                step3_note.style.display = 'none';
+
+                                document.getElementById("nextButton").style.visibility = "visible";
+                                document.getElementById('step3_thermocouple1').removeEventListener('click', move_thermocouple)
+                            }
+
+                            // Check if entered reading matches expected reading
+                            if (reading == leftReadings[i]) {
+                                // Move to next reading
+                                i = i + 1;
+                                document.getElementById('step3_left-reading-input').style.display = 'none';
+                                step3_note.getElementsByTagName('p')[0].innerText = 'Click on thermocouple to move it out by 2cm.'
+                                step3_handClickArea.style.pointerEvents = 'auto';
+                            } else {
+                                // Show alert for incorrect reading
+                                alert('Reading is not correct');
+                            }
+                        });
+
+                        // Display note after delay
+                        setTimeout(() => {
+                            step3_note.style.display = 'block';
+                        }, 2000)
+
+                        // Trigger initial click on thermocouple
+                        document.getElementById('step3_thermocouple1').click()
+                    }
+                });
+            </script>
+        </div>
+
+        <!--Step4	-->
+        <div class="simsubscreen" id="canvas4" style="visibility:hidden;">
+            <h2 id="step3_titlestep" class="incanvas">CALCULATIONS </h2>
+            <p id="step3_pumptext" class="steptext" style="font-family:verdana; font-size:14px;">
+                Calculate temperatures using the Calibration chart.
+            </p>
+            <div class="main" style="display: flex; align-items: center; padding: 8px 0; height: 80%;">
+
+            </div>
+
+            <!-- Side icon for opening calibration chart -->
+            <div class="calibration-icon" id="calibrationIcon">
+                <span style="font-size: 16px;">📋</span>
+                <span class="calibration-tooltip" id="calibrationTooltip">Calibration Chart</span>
+            </div>
+
+            <div class="calibration-popup" id="calibrationPopup">
+                <button class="close-button" id="closeCalibrationButton">&times;</button>
+                <div class="calibration-content">
+                    <img src="./images/calibration_chart.jpeg" alt="Calibration Chart" id="calibrationChartImage">
+                </div>
+            </div>
+
+            <script>
+                const temperatureValues = [
+                    814, 814, 798, 788, 780, 762, 740, 724, 694, 608, 478, 398];
+
+                const userCalculatedValues = [
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+                ];
+
+                // Open calibration chart popup
+                document.getElementById('calibrationIcon').addEventListener('click', () => {
+                    const calibrationPopup = document.getElementById('calibrationPopup');
+                    const simsubscreen = document.getElementById('canvas4');
+
+                    // Append the popup to the simsubscreen element
+                    simsubscreen.appendChild(calibrationPopup);
+
+                    // Display the popup
+                    calibrationPopup.style.display = 'block';
+                });
+
+                // Close calibration chart popup
+                document.getElementById('closeCalibrationButton').addEventListener('click', () => {
+                    document.getElementById('calibrationPopup').style.display = 'none';
+                });
+
+                // Show tooltip on hover
+                document.getElementById('calibrationIcon').addEventListener('mouseover', () => {
+                    document.getElementById('calibrationTooltip').style.display = 'block';
+                });
+
+                // Hide tooltip on mouseout
+                document.getElementById('calibrationIcon').addEventListener('mouseout', () => {
+                    document.getElementById('calibrationTooltip').style.display = 'none';
+                });
+
+
+
+                function createReadingTable(leftReadings, rightReadings) {
+                    // Create a table element
+                    const table = document.createElement('table');
+                    table.border = "1";
+                    // height: 100%;
+                    table.style.height = "100%";
+
+                    // Create table header row
+                    const headerRow = table.insertRow();
+                    const headers = ['Distance (cm)', 'Left Hand Reading', 'Right Hand Reading', 'Average Reading', 'Temperature'];
+                    headers.forEach(headerText => {
+                        const th = document.createElement('th');
+                        th.textContent = headerText;
+                        headerRow.appendChild(th);
+                    });
+
+                    // Calculate average readings
+                    const averageReadings = leftReadings.map((left, index) => (left + rightReadings[index]).toFixed(2) / 2);
+
+                    // Fill table rows with data
+                    for (let i = 0; i < leftReadings.length; i++) {
+                        const row = table.insertRow();
+                        const distance = i * 2;
+                        const leftReading = leftReadings[i];
+                        const rightReading = rightReadings[i];
+                        const averageReading = averageReadings[i];
+
+                        // Insert data into cells
+
+                        const input = document.createElement('input');
+                        input.type = 'number';
+                        input.placeholder = 'Enter temperature'
+                        input.style.width = '80px';
+
+                        const cellsData = [distance, leftReading, rightReading, averageReading, ''];
+                        cellsData.forEach(cellData => {
+                            const cell = row.insertCell();
+                            cell.textContent = cellData;
+                        });
+
+                        // Add temperature cell
+                        const temperatureCell = row.cells[4];
+                        temperatureCell.appendChild(input);
+                    }
+
+                    return table;
+                }
+
+                const table = createReadingTable(leftReadings, rightReadings);
+                document.getElementById('canvas4').getElementsByClassName('main')[0].appendChild(table);
+
+                // Function to make temperature columns editable
+                function makeTemperatureEditable(table, temparatureValues) {
+                    // Add event listener to table cells in temperature column
+                    table.querySelectorAll('tr').forEach((row, index) => {
+                        // skip index 0
+                        if (index == 0) return;
+
+                        const temperatureCell = row.cells[4]; // Assuming temperature is in the 5th column
+                        temperatureCell.classList.add('editable'); // Add a class for styling
+
+                        temperatureCell.addEventListener('click', () => {
+
+                            input = temperatureCell.querySelector('input');
+
+                            // Add event listener for input change
+                            input.addEventListener('change', () => {
+                                const enteredTemperature = parseFloat(input.value);
+                                const temperature = temparatureValues[index - 1];
+
+                                console.log(enteredTemperature, temperature)
+
+                                // Check if entered value is within 5 degrees of the random temperature
+                                if (Math.abs(enteredTemperature - temperature) <= 2) {
+                                    temperatureCell.textContent = input.value;
+                                    userCalculatedValues[index - 1] = enteredTemperature;
+
+                                    // Check if all values are entered
+                                    if (checkAllValuesEntered()) {
+                                        generateLineGraph(userCalculatedValues);
+                                        // show next button
+                                        document.getElementById("nextButton").style.visibility = "visible";
+                                    }
+                                } else {
+                                    // Reject the value if it's not within the range
+                                    alert('Calculated temperature is not within accepted range.');
+                                    input.value = temperatureCell.textContent;
+                                }
+                            });
+                        });
+                    });
+                }
+
+                makeTemperatureEditable(table, temperatureValues);
+
+                // function to check if all values are entered
+                function checkAllValuesEntered() {
+                    return userCalculatedValues.every(value => value != 0);
+                }
+
+            </script>
+        </div>
+
+        <!-- Result -->
+        <div class="simsubscreen" id="canvas5" style="visibility:hidden">
+            <h2 id="step3_titlestep" class="incanvas">OBSERVATION </h2>
+            <p id="step3_pumptext" class="steptext" style="font-family:verdana; font-size:14px;">Identify the
+                <strong>Even
+                    Temperature Zone</strong> using the graph plotted below.
+            </p>
+            <div class="main" style="display: flex; align-items: center; padding: 16px 4px; height: 80%;">
+                <canvas id="lineChart"></canvas>
+            </div>
+            <script>
+                // generateLineGraph(temperatureValues)
+
+                function generateLineGraph(temperatureValues) {
+                    const distances = temperatureValues.map((value, index) => index * 2);
+
+                    // Get the canvas element
+                    const ctx = document.getElementById('lineChart').getContext('2d');
+
+                    // Create the line chart
+                    const chart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: distances,
+                            datasets: [{
+                                label: 'Temperature',
+                                data: temperatureValues,
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Distance (cm)'
+                                    }
+                                },
+                                y: {
+                                    title: {
+                                        display: true,
+                                        text: 'Temperature'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            </script>
+        </div>
+    </div>
+
+    <!--next  Arrow	-->
+    <div id="nav">
+        <img id="nextButton" onclick="navNext();" height="40px" src="./images/next.png" style="visibility: hidden;" />
+    </div>
+
+    <div id="copyright"> &copy;
+        <script>
+            document.write(new Date().getFullYear())
+        </script> SOLVE - The Virtual Lab @ NITK Surathkal, Department of Water Resources and Ocean Engineering.
+    </div>
+    </div>
+
+    <!-- Script for Navigation -->
+    <script>
+        const totalCanvas = 5;
+        let currentCanvas = 0;
+
+
+        // COMMENT OR REMOVE THIS SECTION IN FINAL SUBMISSION
+        const queryParams = new URLSearchParams(window.location.search);
+        if (queryParams.has('canvas')) {
+            const canvasValue = parseInt(queryParams.get('canvas'));
+            if (!isNaN(canvasValue) && canvasValue >= 0 && canvasValue <= 5) {
+                currentCanvas = canvasValue;
+
+                if (currentCanvas == 5) {
+                    alert('You need fill the values on page 4 to view the actual result. For Review purpose, we have set the values to default.');
+                    generateLineGraph(temperatureValues)
+                }
+            } else {
+                currentCanvas = 0;
+            }
+        } else {
+            currentCanvas = 0;
+        }
+        // COMMENT OR REMOVE ABOVE SECTION IN FINAL SUBMISSION
+
+
+        // show next button on first canvas
+        if (currentCanvas == 0)
+            document.getElementById("nextButton").style.visibility = "visible";
+
+        document.getElementById(`canvas${currentCanvas}`).style.visibility = 'visible';
+
+        function navNext() {
+            const currentCanvasId = `canvas${currentCanvas} `
+            const nextCanvasId = `canvas${currentCanvas + 1} `
+            if (currentCanvas != totalCanvas) {
+                document.getElementById(`canvas${currentCanvas}`).style.visibility = 'hidden';
+                document.getElementById(`canvas${currentCanvas + 1}`).style.visibility = 'visible';
+                currentCanvas = currentCanvas + 1;
+                document.getElementById("nextButton").style.visibility = "hidden";
+            }
+        }
+
+    </script>
+</body>
+
+</html>
