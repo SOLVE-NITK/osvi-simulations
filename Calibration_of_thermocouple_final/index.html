@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SOLVE</title>
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+  <body>
+    <div class="root">
+      <div></div>
+      <div
+        id="simulation-container"
+        class="simulation-container"
+        data-step-completed="false"
+      >
+        <h4 class="simulation-title">CALIBRATION OF THERMOCOUPLE</h4>
+
+        <div class="text-container-root">
+          <text-element id="text-element" />
+        </div>
+        <!-- <div class="arrow-container-root">
+          <blinking-arrow id="blinking-arrow" />
+        </div> -->
+        <div class="simulation">
+          <div id="step0" class="step">
+            <div class="header">
+              <p class="step-title" style="display: block">Objective</p>
+              <p style="display: block">
+                To calibrate a thermocouple for a particular metal
+              </p>
+              <p class="step-title" style="display: block">Appratus used</p>
+              <p>
+                Crucible, Furnace, Thermocouple, EMF Indicator, Clock,
+                Observational Reference Table
+              </p>
+            </div>
+          </div>
+          <div id="step1" class="step">
+            <div class="step-container">
+              <p class="step-title">Step <span>1</span></p>
+              <p class="step-description">
+                Pure Metal pieces are melted in a crucible inside one of the
+                crucible furnaces
+              </p>
+            </div>
+          </div>
+          <div id="step2" class="step">
+            <div class="step-container">
+              <p class="step-title">Step <span>2</span></p>
+              <p class="step-description">
+                Join the thermocouple and emf indicator
+              </p>
+            </div>
+          </div>
+          <div id="step3" class="step">
+            <div class="step-container">
+              <p class="step-title">Step <span>3</span></p>
+              <p class="step-description">
+                Dip thermocouple connected with wire into melted metal
+              </p>
+            </div>
+          </div>
+          <div id="step4" class="step">
+            <div class="step-container">
+              <p class="step-title">Step <span>4</span></p>
+              <p class="step-description">Start noting down the emf readings</p>
+            </div>
+          </div>
+          <div id="step5" class="step">
+            <div class="step-container">
+              <p class="step-title">Step <span>5</span></p>
+              <p class="step-description">
+                Analyse the readings and make the graph
+              </p>
+            </div>
+          </div>
+          <div id="step6" class="step">
+            <div class="step-container">
+              <p class="step-title">Step <span>6</span></p>
+              <p class="step-description">
+                Plot the graph and Repeat the experiment
+              </p>
+            </div>
+          </div>
+          <div id="step7" class="step">
+            <div class="step-container">
+              <p class="step-title">Step <span>7</span></p>
+              <p class="step-description">
+                Calculation of Error of Thermocouple for Zn metal
+              </p>
+            </div>
+          </div>
+          <!--  <div id="step8" class="step">
+            <div class="step-container">
+              <p class="step-title">Step <span>8</span></p>
+              <p class="step-description">Rinse the metal with Fecl2</p>
+            </div>
+          </div> -->
+          <!-- Repeat this div for each step with respective content -->
+        </div>
+        <div class="navigation">
+          <!-- <button id="prevBtn" onclick="prevStep()">Previous</button> -->
+          <button id="nextBtn">
+            <img width="30px" src="images/Next.png" />
+          </button>
+        </div>
+
+        <div id="copyright">
+          &copy;
+          <script>
+            document.write(new Date().getFullYear());
+          </script>
+          SOLVE - The Virtual Lab @ NITK Surathkal, Metallurgical and Materials
+          engineering
+        </div>
+      </div>
+    </div>
+    <div class="backdrop"></div>
+    <div class="dialog" id="dialog-root"></div>
+    <script type="module" src="js/text.js"></script>
+    <!--    <script type="module" src="js/blinkingArrow.js"></script>-->
+
+    <script type="module" src="js/dialog.js"></script>
+    <script type="module" src="js/index.js"></script>
+    <script type="module" src="js/props.js"></script>
+    <script type="module" src="js/propgenerator.js"></script>
+  </body>
+</html>

@@ -1,0 +1,387 @@
+{
+  "steps": [
+    {
+      "name": "step0",
+      "default": {
+        "actions": [["step", "=", "complete"]]
+      },
+      "props": [
+        {
+          "image": "./images/step0/description.jpeg",
+          "position": { "x": "10%", "y": "30%" },
+          "container": "step0",
+          "dimensions": { "h": "370px", "w": "100%" },
+          "classes": "",
+          "pointofinterests": []
+        }
+      ]
+    },
+    {
+      "name": "step1",
+      "default": {
+        "actions": [
+          ["textelement", "open", "true"],
+          ["textelement", "moveTo", { "x": "10px", "y": "90%" }],
+          [
+            "textelement",
+            "setTitle",
+            "Put the metal pecies inside the crucible furnace and turn on the heater to increase the temperature."
+          ]
+        ]
+      },
+      "props": [
+        {
+          "image": "./images/step1/cf_with_temp.png",
+          "position": { "x": "220px", "y": "35%" },
+          "container": "step3",
+          "dimensions": { "h": "300px", "w": "300px" },
+          "classes": "",
+          "pointofinterests": []
+        },
+        {
+          "image": "./images/step1/metal.png",
+          "position": { "x": "47.2%", "y": "110px" },
+          "container": "step3",
+          "dimensions": { "h": "75px", "w": "75px" },
+          "classes": "",
+          "pointofinterests": [
+            {
+              "x": 25,
+              "y": 40,
+              "cb": [
+                ["top", "=", "225px"],
+                [
+                  "textelement",
+                  "setTitle",
+                  "Now turn on the heater to melt the metal inside the crucible furnace"
+                ],
+
+                ["switch-step1", "opacity", "1"]
+              ]
+            }
+          ]
+        },
+        {
+          "image": "./images/step1/switch.png",
+          "position": { "x": "33%", "y": "397px" },
+          "container": "step3",
+          "dimensions": { "h": "12px", "w": "12px" },
+          "classes": ["hidden"],
+          "id": "switch-step1",
+          "pointofinterests": [
+            {
+              "x": 0,
+              "y": -2,
+              "cb": [
+                ["transition", "=", "transform 0.5s ease"],
+                ["transform", "=", "rotate(90deg)"],
+                ["textelement", "open", null],
+                ["step", "=", "complete"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "step2",
+      "default": {
+        "actions": [
+          ["textelement", "open", null],
+          [
+            "textelement",
+            "setTitle",
+            "Insert one end of connecting wire into emf indicator"
+          ],
+          ["textelement", "moveTo", { "x": "50px", "y": "93%" }]
+        ]
+      },
+      "props": [
+        {
+          "image": "./images/step2/thermocouple.png",
+          "position": { "x": "10%", "y": "60%" },
+          "container": "step2",
+          "dimensions": { "h": "270px", "w": "270px" },
+          "classes": [],
+          "pointofinterests": [],
+          "label": ["Thermocouple", "128"]
+        },
+        {
+          "image": "./images/step2/emf_without_wire.png",
+          "position": { "x": "50%", "y": "20%" },
+          "container": "step2",
+          "dimensions": { "h": "350px", "w": "350px" },
+          "classes": "",
+          "pointofinterests": [],
+          "label": ["Emf Indicator", "140"]
+        },
+        {
+          "image": "./images/step2/wire_for_emf.png",
+          "position": { "x": "10%", "y": "26%" },
+          "container": "step2",
+          "dimensions": { "h": "180px", "w": "180px" },
+          "classes": "",
+          "pointofinterests": [
+            {
+              "x": 100,
+              "y": 70,
+              "cb": [
+                ["left", "=", "44%"],
+                [
+                  "textelement",
+                  "setTitle",
+                  "Connect other end of connecting wire with COLD JUNCTION of  thermocouple"
+                ],
+                ["wire-step2", "opacity", "1"]
+              ]
+            }
+          ]
+        },
+        {
+          "image": "./images/step2/wire.png",
+          "position": { "x": "60%", "y": "47%" },
+          "container": "step2",
+          "dimensions": { "h": "180px", "w": "180px" },
+          "classes": ["hidden"],
+          "pointofinterests": [
+            {
+              "x": 50,
+              "y": 120,
+              "cb": [
+                ["left", "=", "39%"],
+                ["step", "=", "complete"],
+                ["textelement", "open", null]
+              ]
+            }
+          ],
+          "id": "wire-step2"
+        }
+      ]
+    },
+    {
+      "name": "step3",
+      "default": {
+        "actions": [
+          ["textelement", "open", null],
+          [
+            "textelement",
+            "setTitle",
+            "Turn off the heater as the metal has melted completely"
+          ]
+        ]
+      },
+      "props": [
+        {
+          "image": "./images/step3/cf_with_temp.png",
+          "position": { "x": "220px", "y": "35%" },
+          "container": "step1",
+          "dimensions": { "h": "300px", "w": "300px" },
+          "classes": "",
+          "pointofinterests": [],
+          "label": ["Crucible Furnace", "15"]
+        },
+        {
+          "image": "./images/step3/metal_melted.png",
+          "position": { "x": "47.2%", "y": "220px" },
+          "container": "step1",
+          "dimensions": { "h": "75px", "w": "75px" },
+          "classes": "",
+          "pointofinterests": []
+        },
+        {
+          "image": "./images/step3/switch.png",
+          "position": { "x": "33%", "y": "397px" },
+          "container": "step1",
+          "dimensions": { "h": "12px", "w": "12px" },
+          "classes": [],
+          "pointofinterests": [
+            {
+              "x": 0,
+              "y": 0,
+              "cb": [
+                ["transition", "=", "transform 0.5s ease"],
+                ["transform", "=", "rotate(-90deg)"],
+                [
+                  "textelement",
+                  "setTitle",
+                  "Insert the HOT JUNCTION of thermocouple in the melted metal"
+                ],
+                ["thermocouple_with_wire", "opacity", "1"]
+              ]
+            }
+          ]
+        },
+        {
+          "image": "./images/step3/thermocouple_with_wire.png",
+          "id": "thermocouple_with_wire",
+          "position": { "x": "47.5%", "y": "70px" },
+          "container": "step1",
+          "dimensions": { "h": "140px", "w": "140px" },
+          "classes": ["hidden"],
+          "pointofinterests": [
+            {
+              "x": 50,
+              "y": 50,
+              "cb": [
+                ["top", "=", "155px"],
+                ["textelement", "open", null],
+                ["dialog", "openDialog", "quiz"],
+                ["step", "=", "complete"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "step4",
+      "default": {
+        "actions": [
+          ["textelement", "open", null],
+          ["textelement", "setTitle", "Turn on the emf indicator."]
+        ]
+      },
+      "props": [
+        {
+          "image": "./images/step4/emf_complete.png",
+          "position": { "x": "50px", "y": "26%" },
+          "container": "step1",
+          "dimensions": { "h": "300px", "w": "300px" },
+          "classes": "",
+          "pointofinterests": []
+        },
+        {
+          "image": "./images/step4/emf_with_wire.png",
+          "id": "thermocouple_with_wire",
+          "position": { "x": "47.5%", "y": "70px" },
+          "container": "step1",
+          "dimensions": { "h": "300px", "w": "300px" },
+          "classes": [],
+          "pointofinterests": [],
+          "label": ["Emf Indicator", "120"]
+        },
+        {
+          "image": "./images/step4/switch.png",
+          "position": { "x": "60%", "y": "160px" },
+          "container": "step1",
+          "dimensions": { "h": "20px", "w": "20px" },
+          "classes": [],
+          "pointofinterests": [
+            {
+              "x": 3,
+              "y": 3,
+              "cb": [
+                ["transition", "=", "transform 0.5s ease"],
+                ["transform", "=", "rotate(90deg)"],
+                [
+                  "textelement",
+                  "setTitle",
+                  "Start noting down the emf values in the interval of 15 seconds."
+                ],
+                ["clock", "opacity", "1"],
+                ["step", "=", "complete"]
+              ]
+            }
+          ]
+        },
+        {
+          "image": "./images/step4/clock.png",
+          "id": "clock",
+          "position": { "x": "450px", "y": "300px" },
+          "container": "step1",
+          "dimensions": { "h": "300px", "w": "300px" },
+          "classes": ["hidden"],
+          "pointofinterests": [],
+          "label": ["Clock", "140"]
+        }
+      ]
+    },
+    {
+      "name": "step5",
+      "default": {
+        "actions": [
+          ["step", "=", "complete"],
+          [
+            "textelement",
+            "setTitle",
+            "Note the readings until the value becomes constant, which indicates the observed melting point of the metal. Take 10 more readings after that and then Analyze the corresponding values of temperature from observation table."
+          ],
+          ["textelement", "moveTo", { "x": "10px", "y": "87%" }]
+        ]
+      },
+      "props": [
+        {
+          "image": "./images/step5/emf_table_1.png",
+          "position": { "x": "10px", "y": "15%" },
+          "container": "step1",
+          "dimensions": { "h": "400px", "w": "300px" },
+          "classes": "",
+          "pointofinterests": [],
+          "label": ["EMF Table", "50"]
+        },
+        {
+          "image": "./images/step5/observation_table.jpg",
+          "id": "thermocouple_with_wire",
+          "position": { "x": "47.5%", "y": "15%" },
+          "container": "step1",
+          "dimensions": { "h": "370px", "w": "370px" },
+          "classes": [],
+          "pointofinterests": [],
+          "label": ["Observation Table", "20"]
+        }
+      ]
+    },
+    {
+      "name": "step6",
+      "default": {
+        "actions": [
+          [
+            "textelement",
+            "setTitle",
+            "Take the readings 3 more times and compare the corresponding values of observed melting point temperature with the true melting point. Take the average of observed error values, which will be the callibrated error of this thermoouple."
+          ],
+          ["step", "=", "complete"],
+          ["textelement", "moveTo", { "x": "10px", "y": "88%" }]
+        ]
+      },
+      "props": [
+        {
+          "image": "./images/step6/graph.jpg",
+          "position": { "x": "60px", "y": "15%" },
+          "container": "step1",
+          "dimensions": { "h": "600px", "w": "600px" },
+          "classes": "",
+          "pointofinterests": [],
+          "label": ["EMF V/S TIME Graph", "20"]
+        }
+      ]
+    },
+    {
+      "name": "step7",
+      "default": {
+        "actions": [
+          ["textelement", "close", null],
+          ["textelement", "moveTo", { "x": "10px", "y": "90%" }]
+        ]
+      },
+      "props": [
+        {
+          "image": "./images/step7/calculation_1.png",
+          "position": { "x": "160px", "y": "15%" },
+          "container": "step1",
+          "dimensions": { "h": "400px", "w": "400px" },
+          "classes": "",
+          "pointofinterests": []
+        },
+        {
+          "image": "./images/step7/calculation_2.png",
+          "position": { "x": "160px", "y": "50%" },
+          "container": "step1",
+          "dimensions": { "h": "400px", "w": "400px" },
+          "classes": "",
+          "pointofinterests": []
+        }
+      ]
+    }
+  ]
+}
